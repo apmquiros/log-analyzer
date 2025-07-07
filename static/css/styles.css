@@ -1,0 +1,62 @@
+:root {
+  --brand-dark: #1A1A2E;
+  --brand-darker: #16213E;
+  --brand-accent: #E94560;
+  --brand-light: #F9F9F9;
+  --brand-highlight: #0F3460;
+}
+
+body {
+  background: var(--brand-light);
+  color: var(--brand-dark);
+  font-family: 'Inter', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: var(--brand-highlight);
+}
+
+button {
+  background: var(--brand-accent);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid var(--brand-dark);
+}
+
+th {
+  background: var(--brand-darker);
+  color: var(--brand-light);
+}
+
+tbody tr:nth-child(even) {
+  background: var(--brand-light);
+}
+
+tbody tr:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--brand-accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Log Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+  <h1>Log Analyzer</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    <label>Upload Log File:</label><br>
+    <input type="file" name="logfile" required /><br><br>
+
+    <label>Search by IP:</label><br>
+    <input type="text" name="search_ip" placeholder="e.g. 192.168.1.10" /><br><br>
+
+    <label>Search by Keyword:</label><br>
+    <input type="text" name="search_keyword" placeholder="e.g. login failed" /><br><br>
+
+    <label>Search by Custom Regex:</label><br>
+    <input type="text" name="search_regex" placeholder="e.g. ERROR.*" /><br><br>
+
+    <button type="submit">Analyze Log</button>
+  </form>
+
+  {% if logs %}
+    <h2>Results</h2>
+    <p><strong>Total lines in file:</strong> {{ logs.total_lines }}</p>
+    <hr />
+    <p><strong>Filtered Lines shown:</strong> {{ logs.matches|length }}</p>
+    <table id="logTable" class="display">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Log Line</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in logs.matches %}
+          <tr>
+            <td>{{ item.level }}</td>
+            <td>{{ item.line }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p>
+      <a href="/download/csv" class="download-btn">⬇️ Download CSV</a> |
+      <a href="/download/txt" class="download-btn">⬇️ Download TXT</a>
+    </p>
+  {% endif %}
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#logTable').DataTable({
+        "pageLength": 10
+      });
+    });
+  </script>
+</body>
+</html>
